@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Employee Management</title>
+    <style>
+		body {
+		    font-family: Arial, sans-serif;
+		    background-color: #ffffff;
+		    margin: 20px;
+		    color: #222;
+		}
+
+		.form-container {
+		    max-width: 400px;
+		}
+
+		table {
+		    width: 100%;
+		}
+
+		td {
+		    padding: 8px 0;
+		}
+
+		td:first-child {
+		    font-weight: bold;
+		    width: 100px;
+		}
+
+		input[type="text"],
+		input[type="number"],
+		input[type="date"] {
+		    width: 100%;
+		    padding: 6px;
+		    border: 1px solid #ccc;
+		    font-size: 14px;
+		}
+
+		.error {
+		    color: red;
+		    font-size: 12px;
+		}
+
+		.btn-save {
+		    margin-top: 15px;
+		    padding: 6px 14px;
+		    background: none;
+		    border: 1px solid #333;
+		    cursor: pointer;
+		}
+
+		.btn-save:hover {
+		    background-color: #f2f2f2;
+		}
+
+		.id-value {
+		    font-size: 14px;
+		}    </style>
+</head>
+<body>
+
+<h2>Employee Management</h2>
+
+<!-- Flash message after edit or delete -->
+<div class="success-msg" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>DOJ</th>
+            <th>Dept</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="emp : ${employees}">
+            <td th:text="${emp.empId}"></td>
+            <td th:text="${emp.empName}"></td>
+            <td th:text="${emp.empSal}"></td>
+            <td th:text="${emp.empDoj}"></td>
+            <td th:text="${emp.deptName}"></td>
+            <td><a th:href="@{/edit/{id}(id=${emp.empId})}">Edit</a></td>
+            <td><a th:href="@{/delete/{id}(id=${emp.empId})}"
+                   onclick="return confirm('Are you sure you want to delete this employee?')">Delete</a></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+
+
+
